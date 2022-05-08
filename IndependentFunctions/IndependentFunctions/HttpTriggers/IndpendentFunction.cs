@@ -9,6 +9,8 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.IO;
 using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Sperry.MxA.DataProvider.Functions.HttpTriggers
 {
@@ -23,15 +25,18 @@ namespace Sperry.MxA.DataProvider.Functions.HttpTriggers
         }
 
         [Function("v1/IndependentFunctionAzure")]
-        public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req, FunctionContext executionContext)
+        public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req, FunctionContext executionContext)
         {
             _logger.LogInformation(@"independent enkay");
 
             var response = req.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
             Guid obj = Guid.NewGuid();
-            
 
+
+            using var client = new HttpClient();
+            var content = await client.GetStringAsync("http://webcode.me");
+            _logger.LogInformation("independent enkay-------  " +content.Length.ToString());
             response.WriteString(obj.ToString()+"subramanian");
 
             return response;
