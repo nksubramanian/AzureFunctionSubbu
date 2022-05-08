@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.IO;
 using System;
+using System.Linq;
 
 namespace Sperry.MxA.DataProvider.Functions.HttpTriggers
 {
@@ -25,7 +26,9 @@ namespace Sperry.MxA.DataProvider.Functions.HttpTriggers
         [Function("v1/DependentFunctionAzure")]
         public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req, FunctionContext executionContext)
         {
-            _logger.LogInformation(@"DataProviderRequest trigger functions is called enkay");
+            var headers = req.Headers;
+            var apiKey = headers.GetValues("User-Agent").First();
+            _logger.LogInformation(@"dependent "+apiKey);
 
             var response = req.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("Content-Type", "text/plain; charset=utf-8");

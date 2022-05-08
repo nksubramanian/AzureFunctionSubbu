@@ -31,13 +31,15 @@ namespace Sperry.MxA.DataProvider.Functions.HttpTriggers
 
             var response = req.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
+            using var client = new HttpClient();
             Guid obj = Guid.NewGuid();
 
-
-            using var client = new HttpClient();
-            var content = await client.GetStringAsync("http://webcode.me");
-            _logger.LogInformation("independent enkay-------  " +content.Length.ToString());
-            response.WriteString(obj.ToString()+"subramanian");
+            string f = obj.ToString();
+            _logger.LogInformation("independent-------  " + f);
+            client.DefaultRequestHeaders.Add("User-Agent", f);
+            var content = await client.GetStringAsync("http://localhost:42100/api/v1/DependentFunctionAzure");
+            
+            response.WriteString(content+" subramanianenkay");
 
             return response;
 

@@ -6,6 +6,6 @@
     "CONNECTION_STRING": "amqp://guest:guest@localhost:49658//"
   },
   "Host": {
-    "LocalHttpPort": 42100
+    "LocalHttpPort": 44100
   }
 }
