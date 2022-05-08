@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 
 using Newtonsoft.Json;
 using System.IO;
+using System;
 
 namespace Sperry.MxA.DataProvider.Functions.HttpTriggers
 {
@@ -28,8 +29,10 @@ namespace Sperry.MxA.DataProvider.Functions.HttpTriggers
 
             var response = req.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
+            Guid obj = Guid.NewGuid();
+            
 
-            response.WriteString("Welcome to Azure Functions subramanian!");
+            response.WriteString(obj.ToString());
 
             return response;
 
