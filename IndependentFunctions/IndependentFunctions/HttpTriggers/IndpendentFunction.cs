@@ -37,7 +37,7 @@ namespace Sperry.MxA.DataProvider.Functions.HttpTriggers
             string traceparent = "00-0af7651916cd43dd8448eb211c80319c-b9c7c989f97918e1-01";
             _logger.LogInformation("independent-------  " + f);
             client.DefaultRequestHeaders.Add("User-Agent", f);
-            client.DefaultRequestHeaders.Add("User-Agent", traceparent);
+            client.DefaultRequestHeaders.Add("traceparent", traceparent);
             var content = await client.GetStringAsync("https://functions20220509115733.azurewebsites.net/api/v1/DependentFunctionAzure");
             
             response.WriteString(content+" subramanianenkay");
