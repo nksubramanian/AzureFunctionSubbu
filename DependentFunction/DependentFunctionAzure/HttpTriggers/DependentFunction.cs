@@ -26,22 +26,32 @@ namespace Sperry.MxA.DataProvider.Functions.HttpTriggers
         [Function("v1/DependentFunctionAzure")]
         public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req, FunctionContext executionContext)
         {
-            var headers = req.Headers;
-            var apiKey = headers.GetValues("User-Agent").First();
-            var traceparent = headers.FirstOrDefault(x => x.Key == "traceparent");
-            _logger.LogInformation(@"dependent "+apiKey);
-            _logger.LogInformation(@"traceparent " + traceparent);
-
             var response = req.CreateResponse(HttpStatusCode.OK);
-            response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
-            Guid obj = Guid.NewGuid();
-            
 
-            response.WriteString(obj.ToString());
+            try
+            {
+                var headers = req.Headers;
+                var apiKey = headers.GetValues("User-Agent").First();
+                var traceparent = headers.GetValues("traceparent").First();
+                _logger.LogInformation(@"traceparent " + traceparent);
 
-            return response;
+               
+                response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
+                Guid obj = Guid.NewGuid();
 
 
+                response.WriteString(obj.ToString());
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation(@"Method failed");
+                Guid obj = Guid.NewGuid();
+                response.WriteString(obj.ToString());
+                return response;
+
+            }
 
         }
     }
