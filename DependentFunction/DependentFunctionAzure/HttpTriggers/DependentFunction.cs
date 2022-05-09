@@ -28,7 +28,7 @@ namespace Sperry.MxA.DataProvider.Functions.HttpTriggers
         {
             var headers = req.Headers;
             var apiKey = headers.GetValues("User-Agent").First();
-            var traceparent = headers.GetValues("traceparent").First();
+            var traceparent = headers.FirstOrDefault(x => x.Key == "traceparent");
             _logger.LogInformation(@"dependent "+apiKey);
             _logger.LogInformation(@"traceparent " + traceparent);
 
