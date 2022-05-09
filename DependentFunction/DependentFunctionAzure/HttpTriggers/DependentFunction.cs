@@ -27,8 +27,8 @@ namespace Sperry.MxA.DataProvider.Functions.HttpTriggers
         public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req, FunctionContext executionContext)
         {
             var headers = req.Headers;
-            var apiKey = headers.GetValues("User-Agent").First();
-            _logger.LogInformation(@"dependent "+apiKey);
+           // var apiKey = headers.GetValues("User-Agent").First();
+           // _logger.LogInformation(@"dependent "+apiKey);
 
             var response = req.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
