@@ -33,10 +33,11 @@ namespace Sperry.MxA.DataProvider.Functions.HttpTriggers
             response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
             using var client = new HttpClient();
             Guid obj = Guid.NewGuid();
-
             string f = obj.ToString();
+            string traceparent = "00-0af7651916cd43dd8448eb211c80319c-b9c7c989f97918e1-01";
             _logger.LogInformation("independent-------  " + f);
             client.DefaultRequestHeaders.Add("User-Agent", f);
+            client.DefaultRequestHeaders.Add("User-Agent", traceparent);
             var content = await client.GetStringAsync("https://functions20220509115733.azurewebsites.net/api/v1/DependentFunctionAzure");
             
             response.WriteString(content+" subramanianenkay");
