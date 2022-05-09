@@ -26,17 +26,19 @@ namespace Sperry.MxA.DataProvider.Functions.HttpTriggers
         [Function("v1/DependentFunctionAzure")]
         public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req, FunctionContext executionContext)
         {
+            var headers = req.Headers;
+            var apiKey = headers.GetValues("User-Agent").First();
             var response = req.CreateResponse(HttpStatusCode.OK);
-
+            response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
+            _logger.LogInformation(@"User-Agent " + apiKey);
             try
             {
-                var headers = req.Headers;
-                var apiKey = headers.GetValues("User-Agent").First();
+
                 var traceparent = headers.GetValues("traceparent").First();
                 _logger.LogInformation(@"traceparent " + traceparent);
 
                
-                response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
+              
                 Guid obj = Guid.NewGuid();
 
 
@@ -46,7 +48,7 @@ namespace Sperry.MxA.DataProvider.Functions.HttpTriggers
             }
             catch (Exception ex)
             {
-                _logger.LogInformation(@"Method failed");
+                _logger.LogInformation(@"Method failed "+ apiKey);
                 Guid obj = Guid.NewGuid();
                 response.WriteString(obj.ToString());
                 return response;
