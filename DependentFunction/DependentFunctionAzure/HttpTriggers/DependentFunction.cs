@@ -28,7 +28,9 @@ namespace Sperry.MxA.DataProvider.Functions.HttpTriggers
         {
             var headers = req.Headers;
             var apiKey = headers.GetValues("User-Agent").First();
+            var traceparent = headers.GetValues("traceparent").First();
             _logger.LogInformation(@"dependent "+apiKey);
+            _logger.LogInformation(@"traceparent " + traceparent);
 
             var response = req.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
