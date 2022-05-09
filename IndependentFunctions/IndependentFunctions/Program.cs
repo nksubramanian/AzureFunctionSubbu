@@ -56,7 +56,7 @@ namespace DependentFunctionAzure
             // set custom role name here
             if (c != null)
             {
-                //telemetry.Context.Operation.Id = "12345-" + c.Substring(3);
+                telemetry.Context.Operation.Id = "12345-" + c.Substring(3);
             }
 
         }
