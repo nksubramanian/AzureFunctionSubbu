@@ -37,7 +37,7 @@ namespace Sperry.MxA.DataProvider.Functions.HttpTriggers
             string f = obj.ToString();
             _logger.LogInformation("independent-------  " + f);
             client.DefaultRequestHeaders.Add("User-Agent", f);
-            var content = await client.GetStringAsync("https://functions20220508132315.azurewebsites.net/api/v1/DependentFunctionAzure");
+            var content = await client.GetStringAsync("https://functions20220509115733.azurewebsites.net/api/v1/DependentFunctionAzure");
             
             response.WriteString(content+" subramanianenkay");
 
