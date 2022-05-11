@@ -31,7 +31,7 @@ namespace Sperry.MxA.DataProvider.Functions.HttpTriggers
 
             var (operationId, parentId) = GetOperationIdAndParentId(executionContext);
             _logger.LogInformation("operationId-------  " + operationId);
-            _logger.LogInformation("parentId-------  " + parentId);
+            _logger.LogInformation("parentId is operationId-------  " + parentId);
 
             var response = req.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
