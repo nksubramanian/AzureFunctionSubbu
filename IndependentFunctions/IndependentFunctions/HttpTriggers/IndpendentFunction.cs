@@ -29,6 +29,9 @@ namespace Sperry.MxA.DataProvider.Functions.HttpTriggers
         {
             _logger.LogInformation(@"independent enkay");
 
+            var (operationId, parentId) = GetOperationIdAndParentId(executionContext);
+
+
             var response = req.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
             using var client = new HttpClient();
@@ -45,6 +48,26 @@ namespace Sperry.MxA.DataProvider.Functions.HttpTriggers
             return response;
 
 
+
+        }
+
+        private (string, string) GetOperationIdAndParentId(FunctionContext executionContext)
+        {
+            var traceParent = executionContext.TraceContext.TraceParent;
+            if (string.IsNullOrEmpty(traceParent))
+            {
+                return ("", "");
+
+            }
+            var partofTraceParent = traceParent.Split('-');
+            if (partofTraceParent.Length !=4)
+            {
+                return ("", "");
+
+            }
+
+
+            return (partofTraceParent[0], partofTraceParent[1]);
 
         }
     }
