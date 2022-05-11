@@ -44,7 +44,7 @@ namespace Sperry.MxA.DataProvider.Functions.HttpTriggers
             client.DefaultRequestHeaders.Add("traceparent", traceparent);
             var content = await client.GetStringAsync("https://functions20220509115733.azurewebsites.net/api/v1/DependentFunctionAzure");
             
-            response.WriteString(content+" subramanianenkay");
+            response.WriteString(content+" subramanianenkayM");
 
             return response;
 
