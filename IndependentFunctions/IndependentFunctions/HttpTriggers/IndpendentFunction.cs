@@ -30,7 +30,8 @@ namespace Sperry.MxA.DataProvider.Functions.HttpTriggers
             _logger.LogInformation(@"independent enkay");
 
             var (operationId, parentId) = GetOperationIdAndParentId(executionContext);
-
+            _logger.LogInformation("operationId-------  " + operationId);
+            _logger.LogInformation("parentId-------  " + parentId);
 
             var response = req.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
